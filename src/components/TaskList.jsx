@@ -17,34 +17,34 @@ const getFilteredTasks = (tasks, currentFilter) => {
 export default class TaskList extends Component {
   static defaultProps = {
     onDelete: (id) => {},
+    onEdit: (id, newDescription) => {},
   };
+
   static propTypes = {
-    onDelete: PropTypes.number, // Prop Types
+    onDelete: PropTypes.func,
+    onEdit: PropTypes.func,
   };
 
   render() {
-    const { tasks, onDelete, onToggleCompleted, activeFilter } = this.props;
+    const { tasks, onDelete, onToggleCompleted, activeFilter, onEdit } =
+      this.props;
     const contentToRender = getFilteredTasks(tasks, activeFilter);
 
     return (
-      <>
-        <ul className="todo-list">
-          {contentToRender.map(
-            ({ id, description, created, completed, editingValue }) => (
-              <Task
-                key={id}
-                id={id}
-                description={description}
-                created={created}
-                completed={completed}
-                editingValue={editingValue || ''}
-                onDeleted={onDelete}
-                onToggleCompleted={onToggleCompleted}
-              />
-            )
-          )}
-        </ul>
-      </>
+      <ul className="todo-list">
+        {contentToRender.map(({ id, description, created, completed }) => (
+          <Task
+            key={id}
+            id={id}
+            description={description}
+            created={created}
+            completed={completed}
+            onDeleted={onDelete}
+            onToggleCompleted={onToggleCompleted}
+            onEdit={onEdit}
+          />
+        ))}
+      </ul>
     );
   }
 }

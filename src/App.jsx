@@ -12,19 +12,15 @@ export default class App extends Component {
 
   state = {
     tasks: [
-      this.createTodoItem('Drink Cofee'),
+      this.createTodoItem('Drink Coffee'),
       this.createTodoItem('Drink Tea'),
-      this.createTodoItem('Drink Cum'),
+      this.createTodoItem('Drink Milk'),
     ],
     filter: '',
   };
 
   setFilter = (filter) => {
-    this.setState(() => {
-      return {
-        filter,
-      };
-    });
+    this.setState({ filter });
   };
 
   createTodoItem(label) {
@@ -39,24 +35,15 @@ export default class App extends Component {
   onToggleCompleted = (id) => {
     this.setState(({ tasks }) => {
       const idx = tasks.findIndex((el) => el.id === id);
-
-      const oldItem = tasks[idx];
-      const newItem = { ...oldItem, completed: !oldItem.completed };
-
-      const newArray = [
-        ...tasks.slice(0, idx),
-        newItem,
-        ...tasks.slice(idx + 1),
-      ];
-      return {
-        tasks: newArray,
-      };
+      const newTasks = [...tasks];
+      newTasks[idx] = { ...newTasks[idx], completed: !newTasks[idx].completed };
+      return { tasks: newTasks };
     });
   };
 
   deleteItem = (id) => {
-    this.setState((prevState) => ({
-      tasks: prevState.tasks.filter((task) => task.id !== id),
+    this.setState(({ tasks }) => ({
+      tasks: tasks.filter((task) => task.id !== id),
     }));
   };
 
@@ -69,14 +56,22 @@ export default class App extends Component {
 
   clearCompleted = () => {
     this.setState(({ tasks }) => ({
-      tasks: tasks.filter((el) => el.completed === false),
+      tasks: tasks.filter((task) => !task.completed),
     }));
   };
 
+  // Функция редактирования
+  onEditTask = (id, newDescription) => {
+    this.setState(({ tasks }) => {
+      const idx = tasks.findIndex((task) => task.id === id);
+      const updatedTasks = [...tasks];
+      updatedTasks[idx] = { ...updatedTasks[idx], description: newDescription };
+      return { tasks: updatedTasks };
+    });
+  };
+
   render() {
-    const doneCount = this.state.tasks.filter(
-      (el) => el.completed === true
-    ).length;
+    const doneCount = this.state.tasks.filter((el) => el.completed).length;
     const todoCount = this.state.tasks.length - doneCount;
 
     return (
@@ -89,6 +84,7 @@ export default class App extends Component {
               onDelete={this.deleteItem}
               onToggleCompleted={this.onToggleCompleted}
               activeFilter={this.state.filter}
+              onEdit={this.onEditTask}
             />
             <Footer
               toDo={todoCount}
