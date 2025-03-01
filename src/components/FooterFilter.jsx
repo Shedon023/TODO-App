@@ -1,5 +1,6 @@
 import './FooterFilter.css';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class FooterFilter extends Component {
   render() {
@@ -46,3 +47,12 @@ export default class FooterFilter extends Component {
     );
   }
 }
+
+FooterFilter.propTypes = {
+  setFilter: PropTypes.func.isRequired,
+  activeFilter: PropTypes.string.isRequired,
+};
+
+FooterFilter.defaultProps = {
+  activeFilter: 'all',
+};

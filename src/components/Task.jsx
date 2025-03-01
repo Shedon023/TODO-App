@@ -1,5 +1,6 @@
 import './Task.css';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Task extends Component {
   state = {
@@ -87,3 +88,19 @@ export default class Task extends Component {
     );
   }
 }
+
+Task.propTypes = {
+  id: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  created: PropTypes.string.isRequired,
+  completed: PropTypes.bool.isRequired,
+  onDeleted: PropTypes.func.isRequired,
+  onToggleCompleted: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+};
+
+Task.defaultProps = {
+  description: '',
+  created: '',
+  completed: false,
+};
