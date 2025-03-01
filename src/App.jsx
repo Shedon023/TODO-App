@@ -18,6 +18,42 @@ export default class App extends Component {
     filter: '',
   };
 
+  // загружает сохраненный стейт из ЛС при монтировании
+  componentDidMount() {
+    const savedState = JSON.parse(localStorage.getItem('todoAppState'));
+    if (savedState) {
+      this.setState(savedState);
+    }
+    window.addEventListener('storage', this.handleStorageChange); // добавляем слушатель эвентов для авто синхронизации
+  }
+  // сохраняет стейтс в ЛС
+  componentWillUnmount() {
+    this.saveStateToLocalStorage();
+    window.removeEventListener('storage', this.handleStorageChange); // убираем слушатель изменений
+  }
+
+  // Хэндл для синхронизации состояния
+  handleStorageChange = (event) => {
+    if (event.key === 'todoAppState') {
+      const savedState = JSON.parse(event.newValue);
+      if (savedState) {
+        this.setState(savedState);
+      }
+    }
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.tasks !== this.state.tasks) {
+      this.saveStateToLocalStorage();
+    }
+  }
+
+  saveStateToLocalStorage = () => {
+    localStorage.setItem('todoAppState', JSON.stringify(this.state));
+  };
+
+  ///////////////////////////////////////////////////////////////////////////
+
   setFilter = (filter) => {
     this.setState({ filter });
   };
@@ -48,9 +84,12 @@ export default class App extends Component {
 
   addItem = (text) => {
     const newTask = this.createTodoItem(text);
-    this.setState((prevState) => ({
-      tasks: [...prevState.tasks, newTask],
-    }));
+    this.setState(
+      (prevState) => ({
+        tasks: [...prevState.tasks, newTask],
+      })
+      // this.saveStateToLocalStorage
+    );
   };
 
   clearCompleted = () => {
