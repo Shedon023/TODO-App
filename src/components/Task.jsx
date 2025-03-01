@@ -45,10 +45,10 @@ export default class Task extends Component {
       this.props;
     const { isEditing, editedDescription } = this.state;
 
-    const classNames = `todo-list-item ${completed ? 'completed' : ''}`;
+    const taskCn = `todo-list-item ${completed ? 'completed' : ''}`;
 
     return (
-      <li className={classNames}>
+      <li className={taskCn}>
         <div className="view">
           <input
             className="toggle"

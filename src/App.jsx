@@ -5,11 +5,10 @@ import Footer from './components/Footer';
 import { Component } from 'react';
 
 import { formatDistanceToNow } from 'date-fns';
+import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 
 export default class App extends Component {
-  maxId = 100;
-
   state = {
     tasks: [
       this.createTodoItem('Drink Coffee'),
@@ -25,7 +24,7 @@ export default class App extends Component {
 
   createTodoItem(label) {
     return {
-      id: this.maxId++,
+      id: nanoid(),
       description: label,
       created: formatDistanceToNow(new Date()) + ' ago',
       completed: false,

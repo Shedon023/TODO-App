@@ -32,7 +32,7 @@ export default class NewTaskForm extends Component {
             value={this.state.label}
             onChange={this.onLabelChange}
             autoFocus
-          ></input>
+          />
         </form>
       </header>
     );

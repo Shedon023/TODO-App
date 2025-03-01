@@ -1,6 +1,7 @@
 import './TaskList.css';
 import Task from './Task';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const getFilteredTasks = (tasks, currentFilter) => {
   switch (currentFilter) {
@@ -37,3 +38,23 @@ export default class TaskList extends Component {
     );
   }
 }
+
+TaskList.propTypes = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      created: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+    })
+  ).isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onToggleCompleted: PropTypes.func.isRequired,
+  activeFilter: PropTypes.string,
+  onEdit: PropTypes.func.isRequired,
+};
+
+TaskList.defaultProps = {
+  tasks: [],
+  activeFilter: '',
+};

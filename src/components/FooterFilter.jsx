@@ -7,28 +7,40 @@ export default class FooterFilter extends Component {
     return (
       <ul className="filters">
         <li>
-          <button
-            onClick={() => setFilter('all')}
-            className={activeFilter === 'all' ? 'selected' : ''}
-          >
+          <label>
+            <input
+              type="radio"
+              name="filter"
+              value="all"
+              checked={activeFilter === 'all'}
+              onChange={() => setFilter('all')}
+            />
             All
-          </button>
+          </label>
         </li>
         <li>
-          <button
-            onClick={() => setFilter('active')}
-            className={activeFilter === 'active' ? 'selected' : ''}
-          >
+          <label>
+            <input
+              type="radio"
+              name="filter"
+              value="active"
+              checked={activeFilter === 'active'}
+              onChange={() => setFilter('active')}
+            />
             Active
-          </button>
+          </label>
         </li>
         <li>
-          <button
-            onClick={() => setFilter('completed')}
-            className={activeFilter === 'completed' ? 'selected' : ''}
-          >
+          <label>
+            <input
+              type="radio"
+              name="filter"
+              value="completed"
+              checked={activeFilter === 'completed'}
+              onChange={() => setFilter('completed')}
+            />
             Completed
-          </button>
+          </label>
         </li>
       </ul>
     );
