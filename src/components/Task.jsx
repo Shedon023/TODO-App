@@ -32,6 +32,11 @@ export default class Task extends Component {
   handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       this.handleSave();
+    } else if (event.key === 'Escape') {
+      this.setState({
+        isEditing: false,
+        editedDescription: this.props.description,
+      });
     }
   };
 
@@ -55,10 +60,11 @@ export default class Task extends Component {
             {isEditing ? (
               <input
                 type="text"
+                className="editing"
                 value={editedDescription}
                 onChange={this.handleChange}
                 onBlur={this.handleSave} // cохраняем при потере фокуса
-                onKeyPress={this.handleKeyPress} // cохраняем при нажатии Enter
+                onKeyDown={this.handleKeyPress} // cохраняем при нажатии Enter
                 autoFocus
               />
             ) : (
