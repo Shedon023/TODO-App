@@ -60,7 +60,6 @@ export default class App extends Component {
     }));
   };
 
-  // Функция редактирования
   onEditTask = (id, newDescription) => {
     this.setState(({ tasks }) => {
       const idx = tasks.findIndex((task) => task.id === id);

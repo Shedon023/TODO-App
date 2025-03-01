@@ -1,7 +1,6 @@
 import './TaskList.css';
 import Task from './Task';
 import { Component } from 'react';
-import PropTypes from 'prop-types';
 
 const getFilteredTasks = (tasks, currentFilter) => {
   switch (currentFilter) {
@@ -15,16 +14,6 @@ const getFilteredTasks = (tasks, currentFilter) => {
 };
 
 export default class TaskList extends Component {
-  static defaultProps = {
-    onDelete: (id) => {},
-    onEdit: (id, newDescription) => {},
-  };
-
-  static propTypes = {
-    onDelete: PropTypes.func,
-    onEdit: PropTypes.func,
-  };
-
   render() {
     const { tasks, onDelete, onToggleCompleted, activeFilter, onEdit } =
       this.props;

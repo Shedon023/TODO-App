@@ -4,7 +4,7 @@ import { Component } from 'react';
 export default class Task extends Component {
   state = {
     isEditing: false,
-    editedDescription: this.props.description, // начальное описание
+    editedDescription: this.props.description, // исходное описание
   };
 
   // переключение режима редактирования
@@ -12,12 +12,12 @@ export default class Task extends Component {
     this.setState({ isEditing: true });
   };
 
-  // сохранение изменений при потере фокуса или нажатии enter
+  // сохранение изменений при  нажатии enter
   handleSave = () => {
     const { id, onEdit } = this.props;
     const { editedDescription } = this.state;
 
-    // Сохраняем изменения, если они есть
+    // сохранить
     if (editedDescription !== this.props.description) {
       onEdit(id, editedDescription);
     }
@@ -35,7 +35,7 @@ export default class Task extends Component {
     } else if (event.key === 'Escape') {
       this.setState({
         isEditing: false,
-        editedDescription: this.props.description,
+        editedDescription: this.props.description, // отмена редактирования при  "escape"
       });
     }
   };

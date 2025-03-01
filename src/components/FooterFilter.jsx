@@ -1,6 +1,5 @@
 import './FooterFilter.css';
 import { Component } from 'react';
-import PropTypes from 'prop-types';
 
 export default class FooterFilter extends Component {
   render() {
